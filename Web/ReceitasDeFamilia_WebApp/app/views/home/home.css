@@ -1,0 +1,41 @@
+.headerLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+}
+
+.headerDivider {
+    margin-top: 0px;
+}
+
+.newOrderButton {
+    max-height: 25px;
+    font-size: 14px;
+    padding: 1px 8px;
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+th, td{
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 500px) {
+    .searchBox {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .searchBox div:last-child {
+        display: flex;
+        justify-content: center;
+    }
+}

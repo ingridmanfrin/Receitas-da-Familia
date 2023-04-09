@@ -1,0 +1,59 @@
+.headerLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+}
+
+.headerDivider {
+    margin-top: 0px;
+}
+
+.clientsDropdown span #clients {
+    width: 100%;
+    text-align: start;
+}
+
+.addressDropdown span #address {
+    width: 100%;
+    text-align: start;
+}
+
+#productsTable {
+    border: 0px;
+}
+
+#productsTable table {
+    max-height: 100px;
+}
+
+#productsTable table td {
+    cursor: pointer;
+}
+
+.productSegmentDropdown span #productSegment {
+    width: 100%;
+    text-align: start;
+}
+
+.productDropdown span #product {
+    width: 100%;
+    text-align: start;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    width: 120px;
+}
+
+#labelCadastrar{
+    margin-top: 10px;
+}
+#labelCadastrar span{
+    color: rgb(92, 92, 255);
+    cursor: pointer;
+}

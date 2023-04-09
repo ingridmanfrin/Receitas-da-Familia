@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <div class="logo">
+            <img src="images/logo.jpeg" alt="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="">
+            <h3 class="text-center">Receitas de Família</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default" id="loginForm" ng-if="activeForm==='login'">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Faça o login</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input ng-model="loginModel.username" class="form-control" placeholder="Usuário" name="usuario" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="loginModel.password" class="form-control" placeholder="Senha" name="password" type="password" value="">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input ng-model="loginModel.rememberMe" name="remember" type="checkbox" value="Remember Me">Lembrar-me
+                                </label>
+                            </div>
+                            <input type="submit" value="Login" class="btn btn-lg btn-success btn-block" ng-click="loginModel.login(loginModel)">
+                            <div id="labelCadastrar">Não possui cadastro? <span ng-click="setActiveForm('cadastro')">Clique aqui para se cadastrar.</span></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+            <div class="login-panel panel panel-default" id="CadastroForm" ng-if="activeForm==='cadastro'">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Faça o cadastro</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input ng-model="cadastroModel.nome" class="form-control" placeholder="Nome" name="nome" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="cadastroModel.email" class="form-control" placeholder="Email" name="email" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="cadastroModel.senha" class="form-control" placeholder="Senha" name="senha" type="password" value="">
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="cadastroModel.confirmacaoSenha" class="form-control" placeholder="Confirme sua senha" name="confirmacaoSenha" type="password" value="">
+                                <label for="confirmacaoSenha" ng-bind="cadastroModel.validacaoSenha.mensagem()"></label>
+                            </div>
+                           
+                            <input ng-disabled="!cadastroModel.valido()" type="submit" value="Cadastrar" class="btn btn-lg btn-success btn-block" ng-click="cadastroModel.cadastrarUsuario(cadastroModel)">
+                            <div id="labelCadastrar">Já possui cadastro? <span ng-click="setActiveForm('login')">Clique aqui para fazer login.</span></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

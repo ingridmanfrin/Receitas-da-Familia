@@ -1,0 +1,15 @@
+{
+    "name": "ReceitasDeFamília",
+    "short_name": "ReceitasDeFamília",
+    "theme_color": "#cc558b",
+    "background_color": "#cc558b",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "favicon.ico",
+        "sizes": "72x72",
+        "type": "image/png"
+      }
+    ]
+  }
