@@ -24,7 +24,7 @@ namespace ReceitasDeFamilia.Controllers
             var tokenResponse = _loginProvider.Login(model);
 
             if (tokenResponse == null)
-                return NotFound(new { message = "Usu�rio ou senha inv�lidos" });
+                return StatusCode(406, new { message = "Usuário ou senha inválidos" });
 
             return tokenResponse;
         }

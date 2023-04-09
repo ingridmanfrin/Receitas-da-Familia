@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using ReceitasDeFamilia.Exceptions;
 
 namespace ReceitasDeFamilia.Controllers
 {
@@ -39,15 +40,22 @@ namespace ReceitasDeFamilia.Controllers
             model.Senha = SaltService.HashPasword(model.Senha, out var salt);
             model.PasswordSalt = salt;
 
-            var user = _userRepository.Add(model);
-            user.Senha = null;
-
-            if (user == null)
+            try
             {
-                return BadRequest(new { message = "Falha ao salvar." });
-            }
+                var user = _userRepository.Add(model);
+                user.Senha = null;
 
-            return user;
+                if (user == null)
+                {
+                    return BadRequest(new { message = "Falha ao salvar." });
+                }
+
+                return user;
+            }
+            catch (UserAlreadyExistsException)
+            {
+                return Conflict();
+            }
         }
 
         [HttpDelete]
@@ -98,19 +106,29 @@ namespace ReceitasDeFamilia.Controllers
         }
 
         [HttpGet]
-        [Route("{userId}")]
-        public async Task<ActionResult<UserViewModel>> Get(int userId)
+        [Route("{userId?}")]
+        public async Task<ActionResult<UserViewModel>> Get(int? userId)
         {
-            if (!IsLoggedUserTheTarget(userId))
+            int id;
+            if(userId == null)
+            {
+                id = _userService.GetId();
+            }
+            else
+            {
+                id = userId.Value;
+            }
+
+            if (!IsLoggedUserTheTarget(id))
             {
                 return BadRequest();
             }
 
-            var user = _userRepository.Get(userId);
+            var user = _userRepository.Get(id);
 
             if (user == null)
             {
-                return NotFound(new { message = "Usu�rio n�o encontrado" });
+                return NotFound(new { message = "Usuário não encontrado" });
             }
 
             user.Senha = null;

@@ -4,6 +4,7 @@ using ReceitasDeFamilia.Repositories.Extensions;
 using Microsoft.AspNetCore.Components.Server;
 using System.Linq;
 using ReceitasDeFamilia.Services;
+using ReceitasDeFamilia.Exceptions;
 
 namespace ReceitasDeFamilia.Repositories
 {
@@ -64,6 +65,10 @@ namespace ReceitasDeFamilia.Repositories
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
+                if(context.Usuarios.Any(x => x.Email == model.Email))
+                {
+                    throw new UserAlreadyExistsException();
+                }
                 var entity = model.ToUserEntity();
                 context.Usuarios.Add(entity);
                 context.SaveChanges();

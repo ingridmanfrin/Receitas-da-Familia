@@ -24,6 +24,18 @@ builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
 builder.Services.AddSingleton<ILoginService, LoginService>();
 
 
+var AllowSpecificOrigins = " _myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowSpecificOrigins,
+                        policy =>
+                        {
+                            //policy.WithOrigins("http://127.0.0.1:5500");
+                            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                        });
+});
+
+
 //builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 JwtSettings.PopulateSettings(builder.Configuration["Jwt:Issuer"], builder.Configuration["Jwt:Audience"], builder.Configuration["Jwt:Key"]);
 
@@ -45,10 +57,11 @@ builder.Services.AddAuthentication(x =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
         ValidateIssuer = false,
         ValidateAudience = false,
-        ValidateLifetime= true,
+        ValidateLifetime = true,
         ClockSkew = Debugger.IsAttached ? TimeSpan.Zero : TimeSpan.FromMinutes(5)
     };
 });
+
 
 var app = builder.Build();
 
@@ -60,6 +73,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AllowSpecificOrigins);
 
 app.UseAuthentication();
 app.UseAuthorization();
