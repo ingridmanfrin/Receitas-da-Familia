@@ -4,19 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace ReceitasDeFamilia.Models
 {
-    public class CategoryViewModel : ModelBase
+    public class CategoriaReceitaViewModel : ModelBase
     {
         [JsonPropertyName("Id")]
         [BindRequired]
         public int CategoryId { get; set; } 
 
-        [BindRequired]
-        public int UserId { get; set; } 
-
         [JsonRequired]
-        public string Name { get; set; }
-
-        [JsonRequired]
-        public double TargetPercentage { get; set; }
+        public string Nome { get; set; }
     }
 }

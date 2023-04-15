@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ReceitasDeFamilia.Repositories.Entities;
 
-public partial class CategoriasReceitum
+public partial class CategoriasReceita
 {
     public int IdCategoria { get; set; }
 

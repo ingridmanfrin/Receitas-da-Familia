@@ -20,7 +20,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
+builder.Services.AddSingleton<IFamiliaRepository, FamiliaRepository>();
+builder.Services.AddSingleton<ICategoriaReceitaRepository, CategoriaReceitaRepository>();
 builder.Services.AddSingleton<ILoginService, LoginService>();
 
 

@@ -15,7 +15,7 @@ public partial class ReceitasDeFamiliaDbContext : DbContext
     {
     }
 
-    public virtual DbSet<CategoriasReceitum> CategoriasReceita { get; set; }
+    public virtual DbSet<CategoriasReceita> CategoriasReceita { get; set; }
 
     public virtual DbSet<Familia> Familias { get; set; }
 
@@ -31,7 +31,7 @@ public partial class ReceitasDeFamiliaDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CategoriasReceitum>(entity =>
+        modelBuilder.Entity<CategoriasReceita>(entity =>
         {
             entity.HasKey(e => e.IdCategoria);
 

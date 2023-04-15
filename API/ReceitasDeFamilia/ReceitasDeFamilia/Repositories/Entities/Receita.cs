@@ -35,7 +35,7 @@ public partial class Receita
 
     public bool FoiDeletado { get; set; }
 
-    public virtual CategoriasReceitum IdCategoriaNavigation { get; set; } = null!;
+    public virtual CategoriasReceita IdCategoriaNavigation { get; set; } = null!;
 
     public virtual Familia IdFamiliaNavigation { get; set; } = null!;
 }
