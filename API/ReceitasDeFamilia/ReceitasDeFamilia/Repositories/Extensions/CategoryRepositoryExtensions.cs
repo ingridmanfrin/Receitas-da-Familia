@@ -5,22 +5,22 @@ namespace ReceitasDeFamilia.Repositories.Extensions
 {
     public static class CategoryRepositoryExtensions
     {
-        public static CategoriaReceitaViewModel ToCategoriaReceitaViewModel(this CategoriasReceita category)
+        public static CategoriaReceitaViewModel ToCategoriaReceitaViewModel(this CategoriasReceita categoria)
         {
-            if (category == null)
+            if (categoria == null)
             {
                 return null;
             }
 
             return new CategoriaReceitaViewModel()
             {
-                CategoryId = category.IdCategoria,
-                Nome = category.Nome,
-                IsDeleted = category.FoiDeletado,
-                CreatedDatetime = category.DataCriacao,
-                LastEditDatetime = category.DataAlteracao,
-                UsuarioAlteracao = category.UsuarioAlteracao,
-                UsuarioCriacao = category.UsuarioCriacao
+                CategoryId = categoria.IdCategoria,
+                Nome = categoria.Nome,
+                IsDeleted = categoria.FoiDeletado,
+                CreatedDatetime = categoria.DataCriacao,
+                LastEditDatetime = categoria.DataAlteracao,
+                UsuarioAlteracao = categoria.UsuarioAlteracao,
+                UsuarioCriacao = categoria.UsuarioCriacao
             };
         }
     }
