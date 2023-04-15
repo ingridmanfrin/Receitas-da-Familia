@@ -36,12 +36,12 @@ namespace ReceitasDeFamilia.Models
         public void Update(IUserService userService)
         {
             LastEditDatetime = DateTime.Now;
-            UsuarioAlteracao = userService.GetName().IsNullOrEmpty() ? "ADMIN" : userService.GetName();
+            UsuarioAlteracao = userService.GetIdentificacao().IsNullOrEmpty() ? "ADMIN" : userService.GetIdentificacao();
         }
         public void SetUsuarioCriacaoFromService(IUserService userService)
         {
-            UsuarioCriacao = userService.GetName().IsNullOrEmpty() ? "ADMIN" : userService.GetName();
-            UsuarioAlteracao = userService.GetName().IsNullOrEmpty() ? "ADMIN" : userService.GetName();
+            UsuarioCriacao = userService.GetIdentificacao().IsNullOrEmpty() ? "ADMIN" : userService.GetIdentificacao();
+            UsuarioAlteracao = userService.GetIdentificacao().IsNullOrEmpty() ? "ADMIN" : userService.GetIdentificacao();
         }
     }
 }

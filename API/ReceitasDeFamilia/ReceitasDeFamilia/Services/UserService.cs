@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace ReceitasDeFamilia.Services
 {
@@ -10,6 +11,7 @@ namespace ReceitasDeFamilia.Services
         string GetName();
         int GetId();
         string GetEmail();
+        string GetIdentificacao();
     }
     public class UserService : IUserService
     {
@@ -49,6 +51,17 @@ namespace ReceitasDeFamilia.Services
             if (_httpContextAccessor.HttpContext != null)
             {
                 result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            }
+            return result;
+        }
+
+        public string GetIdentificacao()
+        {
+            var result = string.Empty;
+
+            if (_httpContextAccessor.HttpContext != null && GetId() > 0 && !GetEmail().IsNullOrEmpty())
+            {
+                result = $"{GetId()} - {GetEmail()}";
             }
             return result;
         }
