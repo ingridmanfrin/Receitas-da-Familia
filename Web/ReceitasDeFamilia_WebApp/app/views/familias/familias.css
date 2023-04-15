@@ -12,3 +12,7 @@
 .cursorBlock{
     cursor: not-allowed;
 }
+
+/* #familiaModal{
+    z-index: 1000!important;
+} */

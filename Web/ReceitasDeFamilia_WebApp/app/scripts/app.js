@@ -253,12 +253,17 @@ angular
 
 
   function _initModalZIndexControl() {
+    //adiciono primeiro a marcação de controle nas modais existentes
+
     $('.modal').on('hidden.bs.modal', function (event) {
+      if(!$(this).hasClass('fv-modal-stack')){
+        return;
+      }
       $(this).removeClass('fv-modal-stack');
       $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
+      // console.log('log1 - ' + $('body').data('fv_open_modals'));
     });
-
-
+    
     $('.modal').on('shown.bs.modal', function (event) {
 
       // keep track of the number of open modals
@@ -275,8 +280,9 @@ angular
       }
 
       $(this).addClass('fv-modal-stack');
-
+      
       $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
+      // console.log('log2 - ' +$('body').data('fv_open_modals'));
 
       $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
 

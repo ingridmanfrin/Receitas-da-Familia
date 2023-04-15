@@ -10,7 +10,8 @@
             cadastrar,
             get,
             getAll,
-            atualizar
+            atualizar,
+            deletar
         };
 
         function cadastrar(model) {
@@ -68,6 +69,22 @@
             $http({
                 method: 'GET',
                 url: '/api/Familia'
+            }).then(function successCallback(response) {
+                console.log(response);
+                defered.resolve(response);
+            }, function errorCallback(response) {
+                console.log('error');
+                defered.resolve('error');
+
+            });
+            return defered.promise;
+        }
+
+        function deletar(id) {
+            var defered = $q.defer();
+            $http({
+                method: 'DELETE',
+                url: '/api/Familia/' + id
             }).then(function successCallback(response) {
                 console.log(response);
                 defered.resolve(response);

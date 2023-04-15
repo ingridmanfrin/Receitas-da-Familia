@@ -17,7 +17,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in familias" onclick="familiaModal.editFamilia()">
+					<tr ng-repeat="item in familias" ng-click="familiaModal.onOpen(item)">
 						<td ng-bind="item.nome"></td>
 						<td ng-bind="item.descricao"></td>
 					</tr>
@@ -33,23 +33,43 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" ng-click="familiaModal.onCancel()">&times;</button>
+				<button type="button" class="close" ng-click="familiaModal.onClose()">&times;</button>
 				<h4 class="modal-title" id="familiaModalLabel">Edição Família</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-lg-6">
-						
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="id">Id</label>
+							<input ng-model="familiaModal.model.Id" class="form-control cursorBlock" placeholder="Id" name="id" type="text" readonly>
+						</div>
 					</div>
-					<div class="col-lg-6">
-					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="nome">Nome</label>
+							<input ng-model="familiaModal.model.nome" class="form-control" placeholder="Nome" name="nome" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="descricao">Descrição</label>
+							<input ng-model="familiaModal.model.descricao" class="form-control" placeholder="Descrição" name="descricao" type="text">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="foto">url Foto</label>
+							<input ng-model="familiaModal.model.Foto" class="form-control" placeholder="Foto" name="Foto" type="text">
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" ng-show="familiaModal.editing" ng-click="familiaModal.onDelete()">Deletar</button>
-				<button type="button" class="btn btn-default" ng-click="familiaModal.onCancel()">Cancelar</button>
-				<button type="button" class="btn btn-primary" ng-click="familiaModal.onSubmit()">Salvar</button>
+				<button type="button" class="btn btn-default" ng-click="familiaModal.onDelete()">Deletar</button>
+				<button type="button" class="btn btn-default" ng-click="familiaModal.onClose()">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="">Salvar</button>
 			</div>
 		</div>
 	</div>

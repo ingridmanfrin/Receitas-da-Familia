@@ -50,6 +50,7 @@ angular.module('sbAdminApp')
 			ctrl.deferred = null;
 
 			ctrl.show = function (title, message, config) {
+
 				ctrl.deferred = $q.defer();
 
 				scope.confirmModal.title = title;
