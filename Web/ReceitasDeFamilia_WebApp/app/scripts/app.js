@@ -156,6 +156,26 @@ angular
           }
         }
       })
+      .state('dashboard.familias', {
+        url: '/familias',
+        controller: 'familiasCtrl',
+        templateUrl: 'views/familias/familias.html',
+        authorize: true,
+        templateConfig: {
+        },
+        resolve: {
+          loadMyFiles: function ($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name: 'sbAdminApp',
+              files: [
+                'views/familias/familias.controller.js',
+                'views/familias/familias.css',
+                'scripts/services/familia.service.js'
+              ]
+            })
+          }
+        }
+      })
 
   }])
   .run(['$rootScope', '$state', 'principal', 'authorization', '$timeout', 'localStorageService', 'confirmDialog', function ($rootScope, $state, principal, authorization, $timeout, localStorageService, confirmDialog) {
