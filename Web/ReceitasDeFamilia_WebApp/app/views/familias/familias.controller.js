@@ -14,13 +14,21 @@ angular.module('sbAdminApp')
 
     $scope.familiaModal = {
       model: null,
+      mode: 'edit',
       onOpen: (item) => {
-        $scope.familiaModal.model = item;
+        if(item  === 'new'){
+          $scope.familiaModal.model = {};
+          $scope.familiaModal.mode = 'new';
+        }else{
+          $scope.familiaModal.mode = 'edit';
+          $scope.familiaModal.model = item;
+        }
         $('#familiaModal').modal('toggle');
       },
       onClose: () => {
         $scope.familiaModal.model = null;
         $('#familiaModal').modal('toggle');
+        _getFamilias();
       },
       onDelete: () => {
         if ($scope.familiaModal.model == null) {
@@ -76,17 +84,77 @@ angular.module('sbAdminApp')
 
         
 
+      },
+      onSave: () => {
+        if ($scope.familiaModal.model == null) {
+          let msg = 'Nenhuma família selecionada.';
+          toastr.warning("", msg, {
+            "closeButton": true,
+            "newestOnTop": true,
+            "progressBar": true,
+            "preventDuplicates": true,
+          });
+          $scope.familiaModal.onClose();
+          return;
+        }
+        if($scope.familiaModal.mode === 'new'){
+          familiaService.cadastrar($scope.familiaModal.model).then((resp) => {
+            if (resp.status !== 200) {
+              let msg = 'Erro ao salvar família';
+              toastr.error("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            } else {
+              let msg = `Família ${$scope.familiaModal.model.nome} cadastrada com sucesso.`;
+              toastr.success("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            }
+            $scope.familiaModal.onClose();
+          })
+        }else{
+          familiaService.atualizar($scope.familiaModal.model).then((resp) => {
+            if (resp.status !== 200) {
+              let msg = 'Erro ao atualizar família';
+              toastr.error("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            } else {
+              let msg = `Família ${$scope.familiaModal.model.nome} atualizada com sucesso.`;
+              toastr.success("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            }
+            $scope.familiaModal.onClose();
+          })
+        }
       }
     }
     configDataTables();
 
-    familiaService.getAll().then((resp) => {
-      if (resp.status != 200) {
-        return;
-      }
-      $scope.familias = resp.data;
-      rerenderDatatable();
-    });
+    function _getFamilias(){
+      familiaService.getAll().then((resp) => {
+        if (resp.status != 200) {
+          return;
+        }
+        $scope.familias = resp.data;
+        rerenderDatatable();
+      });
+    }
+    _getFamilias();
+    
 
 
 
