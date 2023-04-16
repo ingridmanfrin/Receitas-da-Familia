@@ -57,7 +57,7 @@ angular.module('sbAdminApp')
           .then((resp) => {
             if (resp) {
               $timeout(() => {
-                familiaService.deletar($scope.familiaModal.model.id).then((resp) => {
+                familiaService.deletar($scope.familiaModal.model.Id).then((resp) => {
                   if (resp.status !== 200) {
                     let msg = 'Erro ao deletar família';
                     toastr.error("", msg, {
