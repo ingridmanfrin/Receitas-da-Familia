@@ -81,7 +81,7 @@ angular.module('sbAdminApp')
                 }
 
                 let dtExpires = new Date();
-                dtExpires.setSeconds(dtExpires.getSeconds() + (5 * 60));// 5 minutes
+                dtExpires.setSeconds(dtExpires.getSeconds() + (120 * 60));// 120 minutes
 
                 var token = {
                     access_token: data.data.token,
