@@ -176,6 +176,27 @@ angular
           }
         }
       })
+      .state('dashboard.receitas', {
+        url: '/receitas',
+        controller: 'receitasCtrl',
+        templateUrl: 'views/receitas/receitas.html',
+        authorize: true,
+        templateConfig: {
+        },
+        resolve: {
+          loadMyFiles: function ($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name: 'sbAdminApp',
+              files: [
+                'views/receitas/receitas.controller.js',
+                'views/receitas/receitas.css',
+                'scripts/services/familia.service.js',
+                'scripts/services/receita.service.js'
+              ]
+            })
+          }
+        }
+      })
 
   }])
   .run(['$rootScope', '$state', 'principal', 'authorization', '$timeout', 'localStorageService', 'confirmDialog', function ($rootScope, $state, principal, authorization, $timeout, localStorageService, confirmDialog) {

@@ -1,11 +1,8 @@
 using ReceitasDeFamilia.Models;
 using ReceitasDeFamilia.Repositories;
-using ReceitasDeFamilia.Repositories.Entities;
 using ReceitasDeFamilia.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
-using System.Security.Claims;
 
 namespace ReceitasDeFamilia.Controllers
 {

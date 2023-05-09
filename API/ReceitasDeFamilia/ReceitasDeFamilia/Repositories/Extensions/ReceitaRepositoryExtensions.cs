@@ -6,7 +6,7 @@ namespace ReceitasDeFamilia.Repositories.Extensions
 {
     public static class ReceitaRepositoryExtensions
     {
-        public static ReceitaViewModel ToFamiliaViewModel(this Receita receita)
+        public static ReceitaViewModel ToReceitaViewModel(this Receita receita)
         {
             if (receita == null)
             {
@@ -33,7 +33,7 @@ namespace ReceitasDeFamilia.Repositories.Extensions
             };
         }
 
-        public static Receita ToFamiliaEntity(this ReceitaViewModel receita)
+        public static Receita ToReceitaEntity(this ReceitaViewModel receita)
         {
             if (receita == null)
             {
@@ -60,31 +60,30 @@ namespace ReceitasDeFamilia.Repositories.Extensions
                 UsuarioAlteracao = receita.UsuarioAlteracao
             };
         }
-        public static Receita UpdateFrom(this Receita familia, ReceitaViewModel model)
+        public static Receita UpdateFrom(this Receita receita, ReceitaViewModel model)
         {
             if (model == null)
             {
-                return familia;
+                return receita;
             }
 
-            if (familia == null)
+            if (receita == null)
             {
-                familia = new Receita();
+                receita = new Receita();
             }
 
-            familia.DataAlteracao = model.LastEditDatetime;
-            familia.UsuarioAlteracao = model.UsuarioAlteracao;
-            familia.Nome = model.Nome;
+            receita.DataAlteracao = model.LastEditDatetime;
+            receita.UsuarioAlteracao = model.UsuarioAlteracao;
+            receita.Nome = model.Nome;
+            receita.CriadorReceita = model.CriadorReceita;
+            receita.InformacoesAdicionais = model.InformacoesAdicionais;
+            receita.Rendimento = model.Rendimento;
+            receita.ModoPreparo = model.ModoPreparo;
+            receita.Ingredientes = model.Ingredientes;
+            receita.TempoPreparoMin = model.TempoPreparoMin;
+            receita.IdCategoria = model.IdCategoria;
 
-            //Nome = receita.Nome,
-            //    CriadorReceita = receita.CriadorReceita,
-            //    InformacoesAdicionais = receita.InformacoesAdicionais,
-            //    Ingredientes = receita.Ingredientes,
-            //    ModoPreparo = receita.ModoPreparo,
-            //    Rendimento = receita.Rendimento,
-            //    TempoPreparoMin = receita.TempoPreparoMin,
-
-            return familia;
+            return receita;
         }
     }
 }

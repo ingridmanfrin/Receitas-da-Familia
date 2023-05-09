@@ -1,0 +1,23 @@
+.headerLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+}
+
+.headerDivider {
+    margin-top: 0px;
+}
+
+.cursorBlock{
+    cursor: not-allowed;
+}
+
+.familiasDropdown span #familias{
+    width: 100%;
+    text-align: start;
+}
+.categoriasDropdown span #categorias{
+    width: 100%;
+    text-align: start;
+}

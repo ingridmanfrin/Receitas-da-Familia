@@ -7,72 +7,72 @@ namespace ReceitasDeFamilia.Repositories
 {
     public interface IReceitaRepository
     {
-        FamiliaViewModel? Get(int familiaId);
-        ICollection<FamiliaViewModel> Get();
-        FamiliaViewModel Add(FamiliaViewModel model);
-        FamiliaViewModel Update(FamiliaViewModel model);
-        bool Delete(int familiaId);
+        ReceitaViewModel? Get(int receitaId);
+        ICollection<ReceitaViewModel> Get();
+        ReceitaViewModel Add(ReceitaViewModel model);
+        ReceitaViewModel Update(ReceitaViewModel model);
+        bool Delete(int receitaId);
     }
     public class ReceitaRepository : IReceitaRepository
     {
 
-        public FamiliaViewModel? Get(int familiaId)
+        public ReceitaViewModel? Get(int receitaId)
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                return context.Familias.Find(familiaId)
-                    .ToFamiliaViewModel();
+                return context.Receitas.Find(receitaId)
+                    .ToReceitaViewModel();
             }
         }
 
-        public ICollection<FamiliaViewModel> Get()
+        public ICollection<ReceitaViewModel> Get()
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                return context.Familias.Where(x => !x.FoiDeletado).Select(x => x.ToFamiliaViewModel()).ToList();
+                return context.Receitas.Where(x => !x.FoiDeletado).Select(x => x.ToReceitaViewModel()).ToList();
             }
         }
 
-        public FamiliaViewModel Add(FamiliaViewModel model)
+        public ReceitaViewModel Add(ReceitaViewModel model)
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                var entity = model.ToFamiliaEntity();
-                context.Familias.Add(entity);
+                var entity = model.ToReceitaEntity();
+                context.Receitas.Add(entity);
                 context.SaveChanges();
-                return entity.ToFamiliaViewModel();
+                return entity.ToReceitaViewModel();
             }
         }
 
-        public FamiliaViewModel Update(FamiliaViewModel model)
+        public ReceitaViewModel Update(ReceitaViewModel model)
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                var familiaFromDB = context.Familias.Find(model.IdFamilia);
-                if (familiaFromDB == null)
+                var receitaFromDB = context.Receitas.Find(model.IdReceita);
+                if (receitaFromDB == null)
                 {
                     return null;
                 }
-                familiaFromDB.UpdateFrom(model);
-                context.Familias.Update(familiaFromDB);
+                receitaFromDB.UpdateFrom(model);
+                context.Receitas.Update(receitaFromDB);
                 context.SaveChanges();
-                return familiaFromDB.ToFamiliaViewModel();
+                return receitaFromDB.ToReceitaViewModel();
             }
         }
 
-        public bool Delete(int familiaId)
+        public bool Delete(int receitaId)
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                var familiaFromDB = context.Familias.Find(familiaId);
-                if (familiaFromDB == null)
+                var receitaFromDB = context.Receitas.Find(receitaId);
+                if (receitaFromDB == null)
                 {
                     return false;
                 }
 
-                familiaFromDB.FoiDeletado = true;
+                receitaFromDB.FoiDeletado = true;
 
-                context.Familias.Update(familiaFromDB);
+                context.Receitas.Update(receitaFromDB);
                 context.SaveChanges();
                 return true;
             }

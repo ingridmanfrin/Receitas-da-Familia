@@ -1,5 +1,5 @@
 (function () {
-    angular.module('sbAdminApp').service('familiaService', service);
+    angular.module('sbAdminApp').service('receitaService', service);
     let showFake = templateFakeData;
 
     service.$inject = inject_args(service);
@@ -11,16 +11,28 @@
             get,
             getAll,
             atualizar,
-            deletar
+            deletar,
+            getCategorias
         };
 
-        
+        // {
+        //     "Id": 0,
+        //     "idFamilia": 0,
+        //     "idCategoria": 0,
+        //     "nome": "string",
+        //     "criadorReceita": "string",
+        //     "tempoPreparoMin": 0,
+        //     "rendimento": "string",
+        //     "ingredientes": "string",
+        //     "modoPreparo": "string",
+        //     "informacoesAdicionais": "string"
+        //   }
 
         function cadastrar(model) {
             var defered = $q.defer();
             $http({
                 method: 'POST',
-                url: '/api/Familia',
+                url: '/api/Receita',
                 data: model
             }).then(function successCallback(response) {
                 console.log(response);
@@ -37,7 +49,7 @@
             var defered = $q.defer();
             $http({
                 method: 'PUT',
-                url: `/api/Familia/${model.Id}`,
+                url: `/api/Receita/${model.Id}`,
                 data: model
             }).then(function successCallback(response) {
                 console.log(response);
@@ -54,7 +66,7 @@
             var defered = $q.defer();
             $http({
                 method: 'GET',
-                url: '/api/Familia/' + id
+                url: '/api/Receita/' + id
             }).then(function successCallback(response) {
                 console.log(response);
                 defered.resolve(response);
@@ -70,7 +82,7 @@
             var defered = $q.defer();
             $http({
                 method: 'GET',
-                url: '/api/Familia'
+                url: '/api/Receita'
             }).then(function successCallback(response) {
                 console.log(response);
                 defered.resolve(response);
@@ -86,7 +98,23 @@
             var defered = $q.defer();
             $http({
                 method: 'DELETE',
-                url: '/api/Familia/' + id
+                url: '/api/Receita/' + id
+            }).then(function successCallback(response) {
+                console.log(response);
+                defered.resolve(response);
+            }, function errorCallback(response) {
+                console.log('error');
+                defered.resolve('error');
+
+            });
+            return defered.promise;
+        }
+
+        function getCategorias() {
+            var defered = $q.defer();
+            $http({
+                method: 'GET',
+                url: '/api/CategoriaReceita'
             }).then(function successCallback(response) {
                 console.log(response);
                 defered.resolve(response);
