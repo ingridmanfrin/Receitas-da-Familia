@@ -31,5 +31,7 @@ namespace ReceitasDeFamilia.Models
         public string ModoPreparo { get; set; } = null!;
 
         public string? InformacoesAdicionais { get; set; }
+
+        public bool Favorito { get; set; }
     }
 }

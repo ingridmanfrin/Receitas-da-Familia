@@ -1,4 +1,5 @@
-﻿using ReceitasDeFamilia.Exceptions;
+﻿using Microsoft.EntityFrameworkCore;
+using ReceitasDeFamilia.Exceptions;
 using ReceitasDeFamilia.Models;
 using ReceitasDeFamilia.Repositories.Entities;
 using ReceitasDeFamilia.Repositories.Extensions;
@@ -21,7 +22,7 @@ namespace ReceitasDeFamilia.Repositories
             using (var context = new ReceitasDeFamiliaDbContext())
             {
                 return context.Receitas.Find(receitaId)
-                    .ToReceitaViewModel();
+                    .ToReceitaViewModel(IsReceitaFavorita(receitaId));
             }
         }
 
@@ -29,7 +30,7 @@ namespace ReceitasDeFamilia.Repositories
         {
             using (var context = new ReceitasDeFamiliaDbContext())
             {
-                return context.Receitas.Where(x => !x.FoiDeletado).Select(x => x.ToReceitaViewModel()).ToList();
+                return context.Receitas.Where(x => !x.FoiDeletado).Select(x => x.ToReceitaViewModel(IsReceitaFavorita(x.IdReceita))).ToList();
             }
         }
 
@@ -40,7 +41,7 @@ namespace ReceitasDeFamilia.Repositories
                 var entity = model.ToReceitaEntity();
                 context.Receitas.Add(entity);
                 context.SaveChanges();
-                return entity.ToReceitaViewModel();
+                return entity.ToReceitaViewModel(IsReceitaFavorita(entity.IdReceita));
             }
         }
 
@@ -56,7 +57,7 @@ namespace ReceitasDeFamilia.Repositories
                 receitaFromDB.UpdateFrom(model);
                 context.Receitas.Update(receitaFromDB);
                 context.SaveChanges();
-                return receitaFromDB.ToReceitaViewModel();
+                return receitaFromDB.ToReceitaViewModel(IsReceitaFavorita(receitaFromDB.IdReceita));
             }
         }
 
@@ -75,6 +76,14 @@ namespace ReceitasDeFamilia.Repositories
                 context.Receitas.Update(receitaFromDB);
                 context.SaveChanges();
                 return true;
+            }
+        }
+
+        private static bool IsReceitaFavorita(int receitaId)
+        {
+            using (var context = new ReceitasDeFamiliaDbContext())
+            {
+                return context.Favoritos.Where(x => !x.FoiDeletado && x.IdReceita == receitaId).Any();
             }
         }
     }

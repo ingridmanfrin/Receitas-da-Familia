@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReceitasDeFamilia.Repositories.Entities;
 
 public partial class Favorito
 {
     public int IdReceita { get; set; }
-
+    [Key]
     public int IdUsuario { get; set; }
 
     public DateTime DataCriacao { get; set; }
@@ -19,7 +20,7 @@ public partial class Favorito
 
     public bool FoiDeletado { get; set; }
 
-    public virtual Receita IdReceitaNavigation { get; set; } = null!;
+    public virtual Receita Receita { get; set; } = null!;
 
     public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 }

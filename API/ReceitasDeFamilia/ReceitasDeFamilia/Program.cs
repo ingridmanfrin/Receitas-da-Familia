@@ -21,6 +21,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IFamiliaRepository, FamiliaRepository>();
+builder.Services.AddSingleton<IFavoritoRepository, FavoritoRepository>();
 builder.Services.AddSingleton<IReceitaRepository, ReceitaRepository>();
 builder.Services.AddSingleton<ICategoriaReceitaRepository, CategoriaReceitaRepository>();
 builder.Services.AddSingleton<ILoginService, LoginService>();

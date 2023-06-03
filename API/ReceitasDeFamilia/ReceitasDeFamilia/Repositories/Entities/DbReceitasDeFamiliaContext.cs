@@ -104,7 +104,6 @@ public partial class ReceitasDeFamiliaDbContext : DbContext
         modelBuilder.Entity<Favorito>(entity =>
         {
             entity
-                .HasNoKey()
                 .ToTable("FAVORITOS");
 
             entity.Property(e => e.DataAlteracao)
@@ -128,7 +127,7 @@ public partial class ReceitasDeFamiliaDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("usuario_criacao");
 
-            entity.HasOne(d => d.IdReceitaNavigation).WithMany()
+            entity.HasOne(d => d.Receita).WithMany()
                 .HasForeignKey(d => d.IdReceita)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FAVORITOS_fk0");

@@ -3,4 +3,8 @@
     public class UserAlreadyExistsException : Exception
     {
     }
+
+    public class ReceitaNotFoundException : Exception
+    {
+    }
 }

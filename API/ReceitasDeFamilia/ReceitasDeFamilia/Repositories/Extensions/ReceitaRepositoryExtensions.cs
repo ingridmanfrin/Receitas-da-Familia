@@ -7,6 +7,9 @@ namespace ReceitasDeFamilia.Repositories.Extensions
     public static class ReceitaRepositoryExtensions
     {
         public static ReceitaViewModel ToReceitaViewModel(this Receita receita)
+            => ToReceitaViewModel(receita, false);
+
+        public static ReceitaViewModel ToReceitaViewModel(this Receita receita, bool favorito)
         {
             if (receita == null)
             {
@@ -29,7 +32,8 @@ namespace ReceitasDeFamilia.Repositories.Extensions
                 CreatedDatetime = receita.DataCriacao,
                 LastEditDatetime = receita.DataAlteracao,
                 UsuarioAlteracao = receita.UsuarioAlteracao,
-                UsuarioCriacao = receita.UsuarioCriacao
+                UsuarioCriacao = receita.UsuarioCriacao,
+                Favorito = favorito
             };
         }
 
@@ -60,6 +64,7 @@ namespace ReceitasDeFamilia.Repositories.Extensions
                 UsuarioAlteracao = receita.UsuarioAlteracao
             };
         }
+
         public static Receita UpdateFrom(this Receita receita, ReceitaViewModel model)
         {
             if (model == null)
@@ -84,6 +89,26 @@ namespace ReceitasDeFamilia.Repositories.Extensions
             receita.IdCategoria = model.IdCategoria;
 
             return receita;
+        }
+
+        public static Favorito ToFavoritoEntity(this FavoritoViewModel favorito)
+        {
+            if (favorito == null)
+            {
+                return null;
+            }
+
+            return new Favorito()
+            {
+                IdReceita = favorito.IdReceita,
+                IdUsuario = favorito.IdUsuario,
+
+                FoiDeletado = favorito.IsDeleted,
+                DataCriacao = favorito.CreatedDatetime,
+                DataAlteracao = favorito.LastEditDatetime,
+                UsuarioCriacao = favorito.UsuarioCriacao,
+                UsuarioAlteracao = favorito.UsuarioAlteracao
+            };
         }
     }
 }
