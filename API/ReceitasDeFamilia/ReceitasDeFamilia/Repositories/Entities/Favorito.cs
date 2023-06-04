@@ -7,7 +7,7 @@ namespace ReceitasDeFamilia.Repositories.Entities;
 public partial class Favorito
 {
     public int IdReceita { get; set; }
-    [Key]
+
     public int IdUsuario { get; set; }
 
     public DateTime DataCriacao { get; set; }

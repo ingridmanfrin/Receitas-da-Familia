@@ -105,6 +105,7 @@ public partial class ReceitasDeFamiliaDbContext : DbContext
         {
             entity
                 .ToTable("FAVORITOS");
+            entity.HasKey(a => new { a.IdReceita, a.IdUsuario});
 
             entity.Property(e => e.DataAlteracao)
                 .HasColumnType("datetime")

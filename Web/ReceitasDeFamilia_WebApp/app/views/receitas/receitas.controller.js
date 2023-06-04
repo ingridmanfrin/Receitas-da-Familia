@@ -151,6 +151,51 @@ angular.module('sbAdminApp')
             $scope.receitaModal.onClose();
           })
         }
+      },
+      onFavorite: () => {
+        if($scope.receitaModal.model != null && $scope.receitaModal.model.favorito){
+          receitaService.removeFavorito($scope.receitaModal.model.Id).then((resp) => {
+            if (resp.status !== 200) {
+              let msg = 'Erro ao remover receita favorita';
+              toastr.error("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            } else {
+              let msg = `receita ${$scope.receitaModal.model.nome} removida dos favoritos.`;
+              toastr.success("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            }
+            $scope.receitaModal.onClose();
+          })
+        }else{
+          receitaService.addFavorito($scope.receitaModal.model.Id).then((resp) => {
+            if (resp.status !== 200) {
+              let msg = 'Erro ao adicionar receita favorita';
+              toastr.error("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            } else {
+              let msg = `receita ${$scope.receitaModal.model.nome} adicionado aos favoritos.`;
+              toastr.success("", msg, {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+              });
+            }
+            $scope.receitaModal.onClose();
+          })
+        }
       }
     }
 

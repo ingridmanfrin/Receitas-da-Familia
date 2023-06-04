@@ -1,24 +1,138 @@
 <div class="container-fluid">
-	
+
 	<hr class="headerDivider" />
-	<h2>Em Construção...</h2>
-	<!-- <div class="row">
-		<div class="col-lg-12 table-responsive">
-			<table  class="table table-striped table-hover"
-					datatable="ng"
-							dt-instance="dataTableObject.instance" dt-options="dataTableObject.options"
-							dt-column-defs="dataTableObject.columnDefs">
+	<h2>Receitas Favoritas</h2>
+	<!-- <div class="row" style="margin-bottom: 15px;">
+		<div class="col-md-12">
+			<button class="btn btn-primary pull-right" ng-click="receitaModal.onOpen('new')">Adicionar nova receita</button>
+		</div>
+	</div> -->
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-hover" datatable="ng" dt-instance="dataTableReceitas.instance"
+				dt-options="dataTableReceitas.options" dt-column-defs="dataTableReceitas.columnDefs">
 				<thead>
 					<tr>
 						<th></th>
+						<th>Nome</th>
+						<th>Família</th>
+						<th>Categoria</th>
+						<th>Tempo de preparo (minutos)</th>
+						<th>Rendimento</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in table">
-						<td></td>
+					<tr ng-repeat="item in receitas" ng-click="receitaModal.onOpen(item)">
+						<td> <i class="favoritoIcon fa {{item.favorito ? 'fa-star' : 'fa-star-o'}}"></i></td>
+						<td ng-bind="item.nome"></td>
+						<td ng-bind="familiasById[item.idFamilia]"></td>
+						<td ng-bind="categoriasById[item.idCategoria]"></td>
+						<td ng-bind="item.tempoPreparoMin"></td>
+						<td ng-bind="item.rendimento"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div> -->
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="receitaModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+	aria-labelledby="receitaModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="receitaModal.onClose()">&times;</button>
+				<h4 class="modal-title" id="receitaModalLabel">Edição Receita</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="id">Id</label>
+							<input ng-model="receitaModal.model.Id" class="form-control cursorBlock" placeholder="Id"
+								name="id" type="text" readonly>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="id">Família</label>
+							<input ng-model="familiasById[receitaModal.model.idFamilia]" class="form-control" placeholder="Nome"
+								name="nome" type="text">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="id">Categoria</label>
+							<input ng-model="categoriasById[receitaModal.model.idCategoria]" class="form-control" placeholder="Nome"
+								name="nome" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="nome">Nome da Receita</label>
+							<input ng-model="receitaModal.model.nome" class="form-control" placeholder="Nome"
+								name="nome" type="text">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="criadorReceita">Criador da Receita</label>
+							<input ng-model="receitaModal.model.criadorReceita" class="form-control" placeholder="Criador da Receita"
+								name="criadorReceita" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="tempoPreparoMin">Tempo de preparo (minutos)</label>
+							<input ng-model="receitaModal.model.tempoPreparoMin" class="form-control" placeholder="60"
+								name="tempoPreparoMin" type="text">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="rendimento">Rendimento</label>
+							<input ng-model="receitaModal.model.rendimento" class="form-control" placeholder="Rendimento"
+								name="rendimento" type="text">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Ingredientes</label>
+								<textarea ng-model="receitaModal.model.ingredientes" name="" id="" cols="30" rows="4" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Modo de Preparo</label>
+								<textarea ng-model="receitaModal.model.modoPreparo" name="" id="" cols="30" rows="4" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Informações Adicionais</label>
+								<textarea ng-model="receitaModal.model.informacoesAdicionais" name="" id="" cols="30" rows="2" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-show="receitaModal.mode==='edit'" ng-click="receitaModal.onFavorite()">{{!receitaModal.model.favorito ? 'Favoritar' : 'Remover Favorito'}}</button>
+				<!-- <button type="button" class="btn btn-default" ng-show="receitaModal.mode==='edit'" ng-click="receitaModal.onDelete()">Deletar</button> -->
+				<button type="button" class="btn btn-default" ng-click="receitaModal.onClose()">Cancelar</button>
+				<!-- <button type="button" class="btn btn-primary" ng-click="receitaModal.onSave()">Salvar</button> -->
+			</div>
+		</div>
+	</div>
 </div>

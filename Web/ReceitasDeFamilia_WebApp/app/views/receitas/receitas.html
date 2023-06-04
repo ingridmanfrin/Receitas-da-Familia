@@ -13,6 +13,7 @@
 				dt-options="dataTableReceitas.options" dt-column-defs="dataTableReceitas.columnDefs">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Nome</th>
 						<th>Família</th>
 						<th>Categoria</th>
@@ -22,6 +23,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="item in receitas" ng-click="receitaModal.onOpen(item)">
+						<td> <i class="favoritoIcon fa {{item.favorito ? 'fa-star' : 'fa-star-o'}}"></i></td>
 						<td ng-bind="item.nome"></td>
 						<td ng-bind="familiasById[item.idFamilia]"></td>
 						<td ng-bind="categoriasById[item.idCategoria]"></td>
@@ -152,6 +154,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-show="receitaModal.mode==='edit'" ng-click="receitaModal.onFavorite()">{{!receitaModal.model.favorito ? 'Favoritar' : 'Remover Favorito'}}</button>
 				<button type="button" class="btn btn-default" ng-show="receitaModal.mode==='edit'" ng-click="receitaModal.onDelete()">Deletar</button>
 				<button type="button" class="btn btn-default" ng-click="receitaModal.onClose()">Cancelar</button>
 				<button type="button" class="btn btn-primary" ng-click="receitaModal.onSave()">Salvar</button>

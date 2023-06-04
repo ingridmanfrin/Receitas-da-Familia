@@ -12,7 +12,10 @@
             getAll,
             atualizar,
             deletar,
-            getCategorias
+            getCategorias,
+            addFavorito,
+            removeFavorito,
+            getAllFavoritos
         };
 
         // {
@@ -122,6 +125,53 @@
                 console.log('error');
                 defered.resolve('error');
 
+            });
+            return defered.promise;
+        }
+
+        function getAllFavoritos() {
+            var defered = $q.defer();
+            $http({
+                method: 'GET',
+                url: '/api/Favorito'
+            }).then(function successCallback(response) {
+                console.log(response);
+                defered.resolve(response);
+            }, function errorCallback(response) {
+                console.log('error');
+                defered.resolve('error');
+
+            });
+            return defered.promise;
+        }
+        
+        function addFavorito(receitaId) {
+            var defered = $q.defer();
+            $http({
+                method: 'Post',
+                url: '/api/Favorito',
+                data: {IdReceita: receitaId}
+            }).then(function successCallback(response) {
+                console.log(response);
+                defered.resolve(response);
+            }, function errorCallback(response) {
+                console.log('error');
+                defered.resolve('error');
+            });
+            return defered.promise;
+        }
+
+        function removeFavorito(receitaId) {
+            var defered = $q.defer();
+            $http({
+                method: 'Delete',
+                url: '/api/Favorito/'+ receitaId
+            }).then(function successCallback(response) {
+                console.log(response);
+                defered.resolve(response);
+            }, function errorCallback(response) {
+                console.log('error');
+                defered.resolve('error');
             });
             return defered.promise;
         }

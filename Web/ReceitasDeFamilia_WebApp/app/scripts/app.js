@@ -131,6 +131,8 @@ angular
               files: [
                 'views/home/home.controller.js',
                 'views/home/home.css',
+                'scripts/services/familia.service.js',
+                'scripts/services/receita.service.js'
               ]
             })
           }
