@@ -30,7 +30,7 @@ namespace ReceitasDeFamilia.Controllers
 
             model.SetUsuarioCriacaoFromService(_userService);
 
-            var receita = _receitaRepository.Add(model);
+            var receita = _receitaRepository.Add(model, userId: _userService.GetId());
 
             if (receita == null)
             {
@@ -77,7 +77,7 @@ namespace ReceitasDeFamilia.Controllers
 
             model.Update(_userService);
 
-            var receita = _receitaRepository.Update(model);
+            var receita = _receitaRepository.Update(model, userId: _userService.GetId());
 
             if (receita == null)
             {
@@ -93,10 +93,10 @@ namespace ReceitasDeFamilia.Controllers
         {
             if (receitaId == null)
             {
-                return Ok(_receitaRepository.Get());
+                return Ok(_receitaRepository.Get(userId: _userService.GetId()));
             }
 
-            var receita = _receitaRepository.Get(receitaId.Value);
+            var receita = _receitaRepository.Get(receitaId.Value, userId: _userService.GetId());
 
             if (receita == null)
             {
@@ -108,7 +108,7 @@ namespace ReceitasDeFamilia.Controllers
 
         private bool IsReceitaOwnedByUser(int receitaId)
         {
-            var famFromDb = _receitaRepository.Get(receitaId);
+            var famFromDb = _receitaRepository.Get(receitaId, userId: _userService.GetId());
 
             if (famFromDb == null || famFromDb?.UsuarioCriacao == _userService.GetIdentificacao())
             {
